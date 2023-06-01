@@ -1638,6 +1638,7 @@ if (console && console.log) {
       discounts: '[data-discounts]',
       savings: '[data-savings]',
       subTotal: '[data-subtotal]',
+      orderDate: '[data-order-date]',
   
       cartBubble: '.cart-link__bubble',
       cartNote: '[name="note"]',
@@ -1668,6 +1669,7 @@ if (console && console.log) {
       this.discounts = form.querySelector(selectors.discounts);
       this.savings = form.querySelector(selectors.savings);
       this.subtotal = form.querySelector(selectors.subTotal);
+      this.orderDate = form.querySelector(selectors.orderDate);
       this.termsCheckbox = form.querySelector(selectors.termsCheckbox);
       this.noteInput = form.querySelector(selectors.cartNote);
   
@@ -1763,9 +1765,20 @@ if (console && console.log) {
         var count = parseInt(items.dataset.count);
         var subtotal = items.dataset.cartSubtotal;
         var savings = items.dataset.cartSavings;
+        var preorder = items.dataset.cartPreorder;
+        var preorderS = items.dataset.cartPreorderS;
+        var today = items.dataset.dateToday;
+
+        console.log('log 30) items.dataset.cartSubtotal = '+ subtotal);
+        console.log('log 31) items.dataset.cartSavings = '+ savings);
+        console.log('log 32) items.dataset.cartPreorder = '+ preorder);
+        console.log('log 33) items.dataset.cartPreorderS = '+ preorderS);
+        console.log('log 34) items.dataset.dateToday = '+ today);
   
         this.updateCartDiscounts(markup.discounts);
         this.updateSavings(savings);
+
+        this.updateOrderDate(preorder, today, preorderS);
   
         if (count > 0) {
           this.wrapper.classList.remove('is-empty');
@@ -1877,6 +1890,57 @@ if (console && console.log) {
       ==============================================================================*/
       updateSubtotal: function(subtotal) {
         this.form.querySelector(selectors.subTotal).innerHTML = theme.Currency.formatMoney(subtotal, theme.settings.moneyFormat);
+      },
+
+      // update the pre-order date - am
+      updateOrderDate: function(preorder, today, preorderS) {
+
+      // var type = container.getAttribute('data-section-type');
+
+      // var doc = parser.parseFromString(html, 'text/html');\
+
+      // var preorderEl = document.querySelectorAll('[data-cart-preorder]');
+      // console.log('log 3) preorderEl = '+ preorderEl ); // [object NodeList]
+        // var preorderEl = this.form.querySelector('.cart__items');
+        // console.log('log 2) preorderEl = '+ preorderEl ); // null
+
+      // var preorderEl = document.getElementById("preorder");
+      //   console.log('log 4) preorderEl = '+ preorderEl ); // null
+      var preorderEl = document.querySelector("[data-order-date]");
+      console.log('log 5) preorderEl = '+ preorderEl );       //[object HTMLDivElement]
+      // var preorderEl2 = document.querySelector("[data-cart-preorder]"); //[object HTMLDivElement]
+      // console.log('log 6) preorderEl2 = '+ preorderEl2 ); // null
+      
+        // var preorderDate = preorderEl.getAttribute('data-cart-preorder');
+        // console.log('log 1) preorderDate  = '+ preorderDate );
+
+        // var preorderDate = preorderEl.getAttribute('data-cart-preorder');
+        // console.log('log 7) preorderDate  = '+ preorderDate );
+
+        // var preorderDate = '15/7/999';
+
+        // var preorderS = '{{ preorder | %s }}';
+        // console.log('log 8) preordeS = '+ preorderS );    //{{ preorder | %s }}
+        // var preorderS2 = `{{ preorder | %s }}`;
+        // console.log('log 9) preorderS2 = '+ preorderS2 );    //{{ preorder | %s }}
+        // var preorderS3 = preorder | %s ;
+        // console.log('log 10) preordeS3 = '+ preorderS3 );    //fails
+
+        console.log('log 11) preorderS = '+ preorderS );    //
+
+        
+        var preorderText = 'Order to be dispatched by '+ preorder;
+
+        if (preorderS > today) {
+          console.log('log 21) preorderS > today');
+          this.form.querySelector(selectors.orderDate).innerHTML = preorderText;
+        } else if (preorderS <= today) {
+          console.log('log 22) preorderS <= today');
+          if (this.form.querySelector(selectors.orderDate)) {
+            console.log('log 23) innerHTML not null');
+            this.form.querySelector(selectors.orderDate).innerHTML = ' ';
+          }
+        };
       },
   
       updateSavings: function(savings) {
