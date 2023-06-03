@@ -963,6 +963,9 @@ if (console && console.log) {
         this._updateMasterSelect(variant);
         this._updateImages(variant);
         this._updatePrice(variant);
+
+        this._updatePreorder(variant); // - am
+
         this._updateUnitPrice(variant);
         this._updateSKU(variant);
         this.currentVariant = variant;
@@ -998,6 +1001,18 @@ if (console && console.log) {
           }
         }));
       },
+
+      // update pdp preorder date - am  // causing error even when marked out
+      _updatePreorder: function(variant) {
+        console.log('log 41) _updatePreorder');
+
+        this.container.dispatchEvent(new CustomEvent('variantPreorderChange', {
+          detail: {
+            variant: variant
+          }
+        }));
+      },
+
   
       _updateUnitPrice: function(variant) {
         if (this.currentVariant && variant.unit_price === this.currentVariant.unit_price) {
@@ -8040,6 +8055,7 @@ if (console && console.log) {
   
         priceWrapper: '[data-product-price-wrap]',
         price: '[data-product-price]',
+        preorder: '[data-variant-date]' // pdp preorder date- am
         comparePrice: '[data-compare-price]',
         savePrice: '[data-save-price]',
         priceA11y: '[data-a11y-price]',
@@ -8224,6 +8240,9 @@ if (console && console.log) {
         this.container.on('variantChange' + this.settings.namespace, this.updateCartButton.bind(this));
         this.container.on('variantImageChange' + this.settings.namespace, this.updateVariantImage.bind(this));
         this.container.on('variantPriceChange' + this.settings.namespace, this.updatePrice.bind(this));
+        // or this is causing error
+        this.container.on('variantPreorderChange' + this.settings.namespace, this.updatePreorder.bind(this)); // pdp preorder date - am
+       
         this.container.on('variantUnitPriceChange' + this.settings.namespace, this.updateUnitPrice.bind(this));
   
         if (this.container.querySelectorAll(this.selectors.sku).length) {
@@ -8366,6 +8385,17 @@ if (console && console.log) {
               this.cache.priceA11y.setAttribute('aria-hidden', 'true');
             }
           }
+        }
+      },
+
+      // - am
+      updatePreorder: function(evt) {
+        var variant = evt.detail.variant;
+        console.log('log 44) variant = '+ variant);
+
+        if (variant) {
+          console.log('log 4) innerHTML');
+          this.container.querySelector(this.selectors.preorder).innerHTML = "777";
         }
       },
   
