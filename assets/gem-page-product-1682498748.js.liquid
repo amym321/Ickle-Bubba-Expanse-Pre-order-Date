@@ -18,6 +18,14 @@
     (function( jQuery ){
   // var $module = jQuery('#m-1682500799278').children('.module');
   // You can add custom Javascript code right here.
+//- am
+
+  (function(product) {
+    var productA = product;
+    console.log('log 91) prodyctA = '+ productA); // undefined
+  })();
+
+//- am
 })( window.GemQuery || jQuery );
   
     
@@ -72,14 +80,122 @@
   var swatchText = $module.attr('data-swatch-text') != undefined ? $module.attr('data-swatch-text') : '1';
   $module.gfV3ProductSwatches({
     swatchText: swatchText,
-    onSwatchSelected: function(variant, $swatch) {}
+    onSwatchSelected: function(variant, product, $swatch) { // - am. addd product
+      // - am
+
+      console.log('log 83) gem onSwatchSelected'); // hits on variant change FOR CHASSIS & HANDLES
+
+      var preorderDate = document.getElementById("preorder-pdp-date");
+      var attribute = preorderDate.getAttribute("data-variant-date");
+      console.log('log 85) attribute = '+ attribute); // pulls OLD vavriant attribute
+      console.log('log 86) variant.title = '+ variant.title); // pulls NEW variant
+      // console.log('log 87) product.title = '+ product.title); //
+
+      // var meta = variant.metafields.custom.pre_order_date;
+      // console.log('log 88) meta = '+ meta); //
+
+      // var meta2 = product.variant.metafields.custom.pre_order_date;
+      // console.log('log 89) meta = '+ meta2); //
+
+
+// var productID = {{8140809240860}};
+
+// var productZ = https://shopname.myshopify.com/products/${stomp-luxe-all-in-one-travel-system-with-isofix-base}.json;
+      // console.log('log 90) productZ= '+ productZ); //
+
+      // var productB = product;
+      // console.log('log 92) productB = '+ productB); // object
+      // console.log('log 93) product.title = '+ product.title); // undefined
+
+      // var productString = JSON.stringify(product, null, 2);
+      // console.log('log 94) productString = '+ productString); //some jQuery bullshit
+
+
+      // console.log('log 95) window.productC - '+ window.productC); //productDrop
+      // console.log('log 95) window.productC.title - '+ window.productC.title); //undefined
+      // console.log('log 95) window.productC.id - '+ window.productC.id); //undefined
+      // var productStringify = JSON.stringify(window.productC, null, 2);
+      // console.log('log 95.2) productStringify = '+ productStringify); //productDrop
+
+      // console.log('log 101) window.productVariants - '+ window.productVariants); // undefined
+      // console.log('log 102) window.productVariantsJSON - '+ window.productVariantsJSON); // undefined
+
+
+      // for (var i = 0; i < window.productC.length; i++) {
+      //   console.log('log 96) window.productC - '+ window.productC); //
+      // }
+      
+ 
+      // for (var [option, values] of window.productC) {
+      //   console.log('log 97.1) values - '+ values); //undefined
+      //   console.log('log 97.2) option - '+ option); //random letters spells ProductDrop
+      // }
+
+      // for (var [variant] of window.productC) {
+      //   console.log('log 97.3) values - '+ values); //undefined
+      //   console.log('log 97.4) option - '+ option); // always "p"
+      // }
+
+      // for (variant of window.productC) {  // window.productC is not iterable
+      //   console.log('log 97.5) variant - '+ variant); //random letters spells ProductDrop
+      // }
+
+
+      this.selectors = {
+        variantsJson: '[data-variant-json]'
+      }
+
+      var variantJson = document.querySelector(this.selectors.variantsJson);
+      console.log('log 103) variantJson - '+ variantJson); // [object HTMLTextAreaElement]
+
+      var variantJsonString = JSON.stringify(variantJson, null, 2);
+      console.log('log 104) variantJsonString = '+ variantJsonString); // {}
+
+      var variantsObjectX = JSON.parse(variantJson.innerHTML);
+      console.log('log 105) variantsObjectX = '+ variantsObjectX); // 
+
+
+      var output = '';
+
+      (function(product) {
+        var markup = `
+        <div style="font-size: 40px;">TEST</div>
+        <div>
+          ${variant.title}
+        </div>
+      `;
+
+      output += markup;
+      })();
+
+      return output;
+      console.log('log 106.2) output = '+ output); // 
+
+
+
+      // document.querySelector('#preorder-pdp-date').innerHTML = "Order today for dispatch by "+ attribute;  // correctly changed it on variant change
+
+    }
+
+
+    // - am
   });
 })(window.GemQuery || jQuery);(function(jQuery) {
+    // - am
+
+  console.log('log 80) gem'); // hits at begining but not at variant change
+
+    // - am
   var $module = jQuery('#m-1682498763296').children('.module');
   var swatchText = $module.attr('data-swatch-text') != undefined ? $module.attr('data-swatch-text') : '1';
   $module.gfV3ProductSwatches({
     swatchText: swatchText,
     onSwatchSelected: function(variant, $swatch) {
+    // - am
+
+    console.log('log 81) gem onSwatchSelected'); // hits on variant change FOR COLOR SWATCH
+ 
+    // - am
       document.dispatchEvent(new CustomEvent('variant:change', {
         detail : {
           variant: variant
