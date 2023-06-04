@@ -89,13 +89,19 @@
       var attribute = preorderDate.getAttribute("data-variant-date");
       console.log('log 85) attribute = '+ attribute); // pulls OLD vavriant attribute
       console.log('log 86) variant.title = '+ variant.title); // pulls NEW variant
-      // console.log('log 87) product.title = '+ product.title); //
+      // console.log('log 87) product.title = '+ product.title); // undefined
+      console.log('log 86.2) variant.id = '+ variant.id); // 44632391057692
+      // console.log('log 86.3) variant.option1 = '+ variant.option1); // Charcoal Grey
+      // console.log('log 86.4) variant.product = '+ variant.product); // undefined
 
       // var meta = variant.metafields.custom.pre_order_date;
-      // console.log('log 88) meta = '+ meta); //
+      // console.log('log 88) meta = '+ meta); // throws error - Cannot read properties of undefined (reading 'custom')
 
       // var meta2 = product.variant.metafields.custom.pre_order_date;
-      // console.log('log 89) meta = '+ meta2); //
+      // console.log('log 89) meta = '+ meta2); // throws error - Cannot read properties of undefined (reading 'custom')
+
+
+
 
 
 // var productID = {{8140809240860}};
@@ -142,6 +148,7 @@
 
 
       this.selectors = {
+        productJson: '[data-product-json]',
         variantsJson: '[data-variant-json]'
       }
 
@@ -152,24 +159,141 @@
       console.log('log 104) variantJsonString = '+ variantJsonString); // {}
 
       var variantsObjectX = JSON.parse(variantJson.innerHTML);
-      console.log('log 105) variantsObjectX = '+ variantsObjectX); // 
+      console.log('log 105) variantsObjectX = '+ variantsObjectX); // [object Object],[object Object],[object Object],[object Object] etc..
+
+      var options = {
+        variants: variantsObjectX
+      };
+      console.log('log 108) options= '+ options); // [object Object]
+
+      // variantsY = new theme.Variants(options);
+      // console.log('log 109) options= '+ options); //
 
 
-      var output = '';
+      this.selectors2 = {
+        productJson: '[data-product-json]',
+        productNotJson: '[data-product-notjson]'
+      }
 
-      (function(product) {
-        var markup = `
-        <div style="font-size: 40px;">TEST</div>
-        <div>
-          ${variant.title}
-        </div>
-      `;
+      var productJson = document.querySelector(this.selectors2.productJson);
+      console.log('log 120) productJson - '+ productJson); // null
 
-      output += markup;
-      })();
+      var productNotJson = document.querySelector(this.selectors2.productNotJson);
+      console.log('log 121) productNotJson - '+ productNotJson); // null
 
-      return output;
-      console.log('log 106.2) output = '+ output); // 
+      var productE = productJson.innerHTML;
+      console.log('log 122) productE - '+ productE); // gives whole product!!!!!
+
+      var productF = productNotJson.innerHTML;
+      console.log('log 123) productF - '+ productF); // productDrop
+
+      // var meta3 = productE.variant.metafields.custom.pre_order_date;
+      // console.log('log 124) meta3- '+ meta3); // Cannot read properties of undefined (reading 'metafields')
+
+      // var meta4 = productF.variant.metafields.custom.pre_order_date;
+      // console.log('log 125) meta4 - '+ meta4); // Cannot read properties of undefined (reading 'metafields')
+
+
+      // var variant = json_product.variants;
+      // console.log('log 127) json_product.variants.length- '+ json_product.variants.length); // 22
+
+      // for ( i=0; i < json_product.variants.length; i++ ) {
+      //   var variant = json_product.variants[i];
+      //   var option1 = variant.option1;
+      //   console.log('log 126) option1 - '+ option1); //
+
+      //   var meta5 = variant.metafields.custom.pre_order_date;
+      //   console.log('log 128) meta5 - '+ meta5); // Cannot read properties of undefined (reading 'custom')
+
+      // }
+
+      var variantsMetafields = jQuery.parseJSON($("#hidden-variant-metafields").html());
+      // var variantsMetafieldsS = jQuery.parseJSON($("#hidden-variant-metafields-s").html());
+      var today = $("#hidden-today").html();
+      // var today2 = document.querySelector("#hidden-today").innerHTML;
+
+      console.log('log 110) variantsMetafields = '+ variantsMetafields ); //  [object Object],[object Object], etc
+      // console.log('log 110.2) variantsMetafieldsS = '+ variantsMetafieldsS ); //
+      console.log('log 111) today = '+ today ); //
+
+
+      // var metaTime = Date.parse('14/07');
+      // // const javaScriptRelease = Date.parse('04 Dec 1995 00:12:00 GMT');
+      // // console.log('log 111.3) javaScriptRelease = '+ javaScriptRelease ); //
+      // console.log('log 111.4) metaTime = '+ metaTime ); //
+
+
+      // var dateObj = new Date('1685900732');
+      // console.log('log 111.5) dateObj = '+ dateObj ); //Invalid Date
+
+      // var month = dateObj.getUTCMonth() + 1; //months from 1-12
+      // var day = dateObj.getUTCDate();
+      // var year = dateObj.getUTCFullYear();
+      
+      // var newdate = year + "/" + month + "/" + day;
+      // console.log('log 111.6) newdate = '+ newdate ); //NaN/NaN/NaN
+
+
+
+
+      // delete the field 1st. If item "coming soon" no variant shows. So start with hidden field cuz can't delete later based on variant.id
+      $("#hidden-current-variant-metafield").hide();
+
+
+      variantsMetafields.forEach(function(variantMetafield) {
+        // // console.log('log 113) variantMetafield = '+ variantMetafield ); //[object Object]
+        // // console.log('log 114) variantMetafield.title = '+ variantMetafield.title ); //undefined
+        // console.log('log 115) variantMetafield.variant_id = '+ variantMetafield.variant_id ); // gives id's
+        // console.log('log 116) variant.id = '+ variant.id ); // gives id
+        console.log('log 117) variantMetafield.metafield_value = -'+ variantMetafield.metafield_value + '-'); // 
+        console.log('log 117.2) variantMetafield.metafield_value_s = -'+ variantMetafield.metafield_value_s + '-' ); // --
+
+        // if(variantMetafield.metafield_value == false) {
+        //   console.log('log 118.1) variantMetafield.metafield_value = -'+ variantMetafield.metafield_value + '-' ); // --
+        //   console.log('log 118.2) variantMetafield.metafield_value_s = -'+ variantMetafield.metafield_value_s + '-' ); // --
+        //   console.log('log 118.3) variant.id = '+ variant.id ); // gives id
+        //   console.log('log 118.4) variantMetafield.variant_id = '+ variantMetafield.variant_id ); // gives NEW id
+        // }
+
+
+        if (variantMetafield.variant_id == variant.id) {
+          if (variantMetafield.metafield_value != false) {
+            console.log('log 130.1) variantMetafield.metafield_value_s = '+ variantMetafield.metafield_value_s ); // --
+            console.log('log 130.2) today = '+ today  );
+
+            if (variantMetafield.metafield_value_s > today) {
+              $("#hidden-current-variant-metafield").html(variantMetafield.metafield_value);
+              $("#hidden-current-variant-metafield").show();
+
+              console.log('log 112.1) variant.id = '+ variant.id ); // gives id
+              console.log('log 112.2) variantMetafield.variant_id = '+ variantMetafield.variant_id ); // gives NEW id
+              console.log('log 112.3) variantMetafield.metafield_value = -'+ variantMetafield.metafield_value + '-'  ); // gives NEW id
+            }
+          }
+        }
+      });
+
+
+
+//CORS error
+
+
+      // var output = '';
+
+      // (function(product) {
+      //   var markup = `
+      //   <div style="font-size: 40px;">TEST</div>
+      //   <div>
+      //     ${variant.title}
+      //   </div>
+      // `;
+
+      // output += markup;
+      // })();
+
+      // return output;
+      // console.log('log 106.2) output = '+ output); // 
+
 
 
 
