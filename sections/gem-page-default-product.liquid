@@ -44,13 +44,17 @@
         {% if metafield-date > date-today %}
           {% assign variant-date = metafield-date | date:  "%d/%m" %}
           <div data-variant-date="{{variant-date}}" id="preorder-pdp-date">
-            Order today for dispatch by {{variant-date}}
+            <span id="hidden-current-variant-metafield">Order today for dispatch by {{variant-date}}</span>
           </div>
         {% else %}
-          <div data-variant-date="{{variant-date}}" id="preorder-pdp-date"></div>
+          <div data-variant-date="{{variant-date}}" id="preorder-pdp-date">
+            <span id="hidden-current-variant-metafield" style="display:none;"></span>
+          </div>
         {% endif  %}
       {% else %}
-        <div data-variant-date="{{variant-date}}" id="preorder-pdp-date"></div>
+        <div data-variant-date="{{variant-date}}" id="preorder-pdp-date">
+          <span id="hidden-current-variant-metafield" style="display:none;"></span>
+        </div>
       {% endif  %}
     {% endif  %}
 
@@ -65,11 +69,10 @@
 
   <span id="hidden-today" style="display:none;">{{date-today}}</span> 
   <span id="hidden-variant-metafields" style="display:none;">{{metafields-data}}</span>  {% comment %} pass all metafield dates {% endcomment %}
-  <span id="hidden-current-variant-metafield" style="display:none; font-size: 20px; color:red;"  style="font-size: 20px;">TEST B</span>
 
 
 
-
+  
 
   {% assign counter = 1 %}
 

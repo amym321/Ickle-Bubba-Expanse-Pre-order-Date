@@ -81,7 +81,7 @@
   $module.gfV3ProductSwatches({
     swatchText: swatchText,
     onSwatchSelected: function(variant, $swatch) {
-      // - am
+      // - am // hits on variant change FOR CHASSIS & HANDLES
       var variantsMetafields = jQuery.parseJSON($("#hidden-variant-metafields").html());
       var today = $("#hidden-today").html();
 
@@ -93,15 +93,16 @@
           if (variantMetafield.metafield_value != false) {
 
             if (variantMetafield.metafield_value_s > today) {
-              $("#hidden-current-variant-metafield").html(variantMetafield.metafield_value);
+              $("#hidden-current-variant-metafield").html("Order today for dispatch by "+variantMetafield.metafield_value);
               $("#hidden-current-variant-metafield").show();
 
             }
           }
         }
       });
-    }
     // - am
+
+    }
   });
 })(window.GemQuery || jQuery);(function(jQuery) {
     // - am
@@ -114,16 +115,42 @@
   $module.gfV3ProductSwatches({
     swatchText: swatchText,
     onSwatchSelected: function(variant, $swatch) {
-    // - am
+    // - am   // hits on variant change FOR COLOR SWATCH
 
-    console.log('log 81) gem onSwatchSelected'); // hits on variant change FOR COLOR SWATCH
+    console.log('log 81) gem onSwatchSelected');
+   
  
+
     // - am
       document.dispatchEvent(new CustomEvent('variant:change', {
         detail : {
           variant: variant
         }
       }));
+
+            // - am
+            console.log('log 82) gem onSwatchSelected');
+
+            var variantsMetafields = jQuery.parseJSON($("#hidden-variant-metafields").html());
+            var today = $("#hidden-today").html();
+        
+            // delete the field 1st. If item "coming soon" no variant shows. So start with hidden field b/c can't delete later based on variant.id
+            $("#hidden-current-variant-metafield").hide();
+        
+            variantsMetafields.forEach(function(variantMetafield) {
+              if (variantMetafield.variant_id == variant.id) {
+                if (variantMetafield.metafield_value != false) {
+        
+                  if (variantMetafield.metafield_value_s > today) {
+                    $("#hidden-current-variant-metafield").html("Order today for dispatch by "+variantMetafield.metafield_value);
+                    $("#hidden-current-variant-metafield").show();
+        
+                  }
+                }
+              }
+            });
+          // - am
+
     }
   });
 })(window.GemQuery || jQuery);
