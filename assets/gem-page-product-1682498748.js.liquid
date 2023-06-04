@@ -18,14 +18,6 @@
     (function( jQuery ){
   // var $module = jQuery('#m-1682500799278').children('.module');
   // You can add custom Javascript code right here.
-//- am
-
-  (function(product) {
-    var productA = product;
-    console.log('log 91) prodyctA = '+ productA); // undefined
-  })();
-
-//- am
 })( window.GemQuery || jQuery );
   
     
@@ -81,12 +73,16 @@
   $module.gfV3ProductSwatches({
     swatchText: swatchText,
     onSwatchSelected: function(variant, $swatch) {
-      // - am // hits on variant change FOR CHASSIS & HANDLES
+      // - am        // hits on variant change FOR CHASSIS & HANDLES
+      console.log('log 85) Chassis or Handles');
+      console.log('log 85.2) chassis / color / handles = '+ variant.title);
+
       var variantsMetafields = jQuery.parseJSON($("#hidden-variant-metafields").html());
       var today = $("#hidden-today").html();
 
-      // delete the field 1st. If item "coming soon" no variant shows. So start with hidden field b/c can't delete later based on variant.id
-      $("#hidden-current-variant-metafield").hide();
+      $("#hidden-current-variant-metafield").hide(); // delete the field 1st. If item "coming soon" no variant shows. So start with hidden field b/c can't delete later based on variant.id
+      $("#hidden-current-variant-message").hide();
+      $(".gf_p-dynamic-checkout-button").show();     // show the dynamic button 1st before possibly hiding
 
       variantsMetafields.forEach(function(variantMetafield) {
         if (variantMetafield.variant_id == variant.id) {
@@ -95,7 +91,10 @@
             if (variantMetafield.metafield_value_s > today) {
               $("#hidden-current-variant-metafield").html("Order today for dispatch by "+variantMetafield.metafield_value);
               $("#hidden-current-variant-metafield").show();
-
+              $("#hidden-current-variant-message").html("We will fulfill the item as soon as it becomes available");
+              $("#hidden-current-variant-message").show();
+              $(".AddToCartText").html("XXX PRE ORDER"); // goes back to ATC automatically on next variant change if necessary
+              $(".gf_p-dynamic-checkout-button").hide();
             }
           }
         }
@@ -117,7 +116,7 @@
     onSwatchSelected: function(variant, $swatch) {
     // - am   // hits on variant change FOR COLOR SWATCH
 
-    console.log('log 81) gem onSwatchSelected');
+    console.log('log 81) Color Swatch');
    
  
 
@@ -133,18 +132,22 @@
 
             var variantsMetafields = jQuery.parseJSON($("#hidden-variant-metafields").html());
             var today = $("#hidden-today").html();
-        
-            // delete the field 1st. If item "coming soon" no variant shows. So start with hidden field b/c can't delete later based on variant.id
-            $("#hidden-current-variant-metafield").hide();
-        
+
+            $("#hidden-current-variant-metafield").hide(); // delete the field 1st. If item "coming soon" no variant shows. So start with hidden field b/c can't delete later based on variant.id
+            $("#hidden-current-variant-message").hide();
+            $(".gf_p-dynamic-checkout-button").show();     // show the dynamic button 1st before possibly hiding
+      
             variantsMetafields.forEach(function(variantMetafield) {
               if (variantMetafield.variant_id == variant.id) {
                 if (variantMetafield.metafield_value != false) {
-        
+      
                   if (variantMetafield.metafield_value_s > today) {
                     $("#hidden-current-variant-metafield").html("Order today for dispatch by "+variantMetafield.metafield_value);
                     $("#hidden-current-variant-metafield").show();
-        
+                    $("#hidden-current-variant-message").html("We will fulfill the item as soon as it becomes available");
+                    $("#hidden-current-variant-message").show();
+                    $(".AddToCartText").html("XXX PRE ORDER"); // goes back to ATC automatically on next variant change if necessary
+                    $(".gf_p-dynamic-checkout-button").hide();
                   }
                 }
               }
