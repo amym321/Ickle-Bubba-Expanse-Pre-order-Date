@@ -80,231 +80,27 @@
   var swatchText = $module.attr('data-swatch-text') != undefined ? $module.attr('data-swatch-text') : '1';
   $module.gfV3ProductSwatches({
     swatchText: swatchText,
-    onSwatchSelected: function(variant, product, $swatch) { // - am. addd product
+    onSwatchSelected: function(variant, $swatch) {
       // - am
-
-      console.log('log 83) gem onSwatchSelected'); // hits on variant change FOR CHASSIS & HANDLES
-
-      var preorderDate = document.getElementById("preorder-pdp-date");
-      var attribute = preorderDate.getAttribute("data-variant-date");
-      console.log('log 85) attribute = '+ attribute); // pulls OLD vavriant attribute
-      console.log('log 86) variant.title = '+ variant.title); // pulls NEW variant
-      // console.log('log 87) product.title = '+ product.title); // undefined
-      console.log('log 86.2) variant.id = '+ variant.id); // 44632391057692
-      // console.log('log 86.3) variant.option1 = '+ variant.option1); // Charcoal Grey
-      // console.log('log 86.4) variant.product = '+ variant.product); // undefined
-
-      // var meta = variant.metafields.custom.pre_order_date;
-      // console.log('log 88) meta = '+ meta); // throws error - Cannot read properties of undefined (reading 'custom')
-
-      // var meta2 = product.variant.metafields.custom.pre_order_date;
-      // console.log('log 89) meta = '+ meta2); // throws error - Cannot read properties of undefined (reading 'custom')
-
-
-
-
-
-// var productID = {{8140809240860}};
-
-// var productZ = https://shopname.myshopify.com/products/${stomp-luxe-all-in-one-travel-system-with-isofix-base}.json;
-      // console.log('log 90) productZ= '+ productZ); //
-
-      // var productB = product;
-      // console.log('log 92) productB = '+ productB); // object
-      // console.log('log 93) product.title = '+ product.title); // undefined
-
-      // var productString = JSON.stringify(product, null, 2);
-      // console.log('log 94) productString = '+ productString); //some jQuery bullshit
-
-
-      // console.log('log 95) window.productC - '+ window.productC); //productDrop
-      // console.log('log 95) window.productC.title - '+ window.productC.title); //undefined
-      // console.log('log 95) window.productC.id - '+ window.productC.id); //undefined
-      // var productStringify = JSON.stringify(window.productC, null, 2);
-      // console.log('log 95.2) productStringify = '+ productStringify); //productDrop
-
-      // console.log('log 101) window.productVariants - '+ window.productVariants); // undefined
-      // console.log('log 102) window.productVariantsJSON - '+ window.productVariantsJSON); // undefined
-
-
-      // for (var i = 0; i < window.productC.length; i++) {
-      //   console.log('log 96) window.productC - '+ window.productC); //
-      // }
-      
- 
-      // for (var [option, values] of window.productC) {
-      //   console.log('log 97.1) values - '+ values); //undefined
-      //   console.log('log 97.2) option - '+ option); //random letters spells ProductDrop
-      // }
-
-      // for (var [variant] of window.productC) {
-      //   console.log('log 97.3) values - '+ values); //undefined
-      //   console.log('log 97.4) option - '+ option); // always "p"
-      // }
-
-      // for (variant of window.productC) {  // window.productC is not iterable
-      //   console.log('log 97.5) variant - '+ variant); //random letters spells ProductDrop
-      // }
-
-
-      this.selectors = {
-        productJson: '[data-product-json]',
-        variantsJson: '[data-variant-json]'
-      }
-
-      var variantJson = document.querySelector(this.selectors.variantsJson);
-      console.log('log 103) variantJson - '+ variantJson); // [object HTMLTextAreaElement]
-
-      var variantJsonString = JSON.stringify(variantJson, null, 2);
-      console.log('log 104) variantJsonString = '+ variantJsonString); // {}
-
-      var variantsObjectX = JSON.parse(variantJson.innerHTML);
-      console.log('log 105) variantsObjectX = '+ variantsObjectX); // [object Object],[object Object],[object Object],[object Object] etc..
-
-      var options = {
-        variants: variantsObjectX
-      };
-      console.log('log 108) options= '+ options); // [object Object]
-
-      // variantsY = new theme.Variants(options);
-      // console.log('log 109) options= '+ options); //
-
-
-      this.selectors2 = {
-        productJson: '[data-product-json]',
-        productNotJson: '[data-product-notjson]'
-      }
-
-      var productJson = document.querySelector(this.selectors2.productJson);
-      console.log('log 120) productJson - '+ productJson); // null
-
-      var productNotJson = document.querySelector(this.selectors2.productNotJson);
-      console.log('log 121) productNotJson - '+ productNotJson); // null
-
-      var productE = productJson.innerHTML;
-      console.log('log 122) productE - '+ productE); // gives whole product!!!!!
-
-      var productF = productNotJson.innerHTML;
-      console.log('log 123) productF - '+ productF); // productDrop
-
-      // var meta3 = productE.variant.metafields.custom.pre_order_date;
-      // console.log('log 124) meta3- '+ meta3); // Cannot read properties of undefined (reading 'metafields')
-
-      // var meta4 = productF.variant.metafields.custom.pre_order_date;
-      // console.log('log 125) meta4 - '+ meta4); // Cannot read properties of undefined (reading 'metafields')
-
-
-      // var variant = json_product.variants;
-      // console.log('log 127) json_product.variants.length- '+ json_product.variants.length); // 22
-
-      // for ( i=0; i < json_product.variants.length; i++ ) {
-      //   var variant = json_product.variants[i];
-      //   var option1 = variant.option1;
-      //   console.log('log 126) option1 - '+ option1); //
-
-      //   var meta5 = variant.metafields.custom.pre_order_date;
-      //   console.log('log 128) meta5 - '+ meta5); // Cannot read properties of undefined (reading 'custom')
-
-      // }
-
       var variantsMetafields = jQuery.parseJSON($("#hidden-variant-metafields").html());
-      // var variantsMetafieldsS = jQuery.parseJSON($("#hidden-variant-metafields-s").html());
       var today = $("#hidden-today").html();
-      // var today2 = document.querySelector("#hidden-today").innerHTML;
 
-      console.log('log 110) variantsMetafields = '+ variantsMetafields ); //  [object Object],[object Object], etc
-      // console.log('log 110.2) variantsMetafieldsS = '+ variantsMetafieldsS ); //
-      console.log('log 111) today = '+ today ); //
-
-
-      // var metaTime = Date.parse('14/07');
-      // // const javaScriptRelease = Date.parse('04 Dec 1995 00:12:00 GMT');
-      // // console.log('log 111.3) javaScriptRelease = '+ javaScriptRelease ); //
-      // console.log('log 111.4) metaTime = '+ metaTime ); //
-
-
-      // var dateObj = new Date('1685900732');
-      // console.log('log 111.5) dateObj = '+ dateObj ); //Invalid Date
-
-      // var month = dateObj.getUTCMonth() + 1; //months from 1-12
-      // var day = dateObj.getUTCDate();
-      // var year = dateObj.getUTCFullYear();
-      
-      // var newdate = year + "/" + month + "/" + day;
-      // console.log('log 111.6) newdate = '+ newdate ); //NaN/NaN/NaN
-
-
-
-
-      // delete the field 1st. If item "coming soon" no variant shows. So start with hidden field cuz can't delete later based on variant.id
+      // delete the field 1st. If item "coming soon" no variant shows. So start with hidden field b/c can't delete later based on variant.id
       $("#hidden-current-variant-metafield").hide();
 
-
       variantsMetafields.forEach(function(variantMetafield) {
-        // // console.log('log 113) variantMetafield = '+ variantMetafield ); //[object Object]
-        // // console.log('log 114) variantMetafield.title = '+ variantMetafield.title ); //undefined
-        // console.log('log 115) variantMetafield.variant_id = '+ variantMetafield.variant_id ); // gives id's
-        // console.log('log 116) variant.id = '+ variant.id ); // gives id
-        console.log('log 117) variantMetafield.metafield_value = -'+ variantMetafield.metafield_value + '-'); // 
-        console.log('log 117.2) variantMetafield.metafield_value_s = -'+ variantMetafield.metafield_value_s + '-' ); // --
-
-        // if(variantMetafield.metafield_value == false) {
-        //   console.log('log 118.1) variantMetafield.metafield_value = -'+ variantMetafield.metafield_value + '-' ); // --
-        //   console.log('log 118.2) variantMetafield.metafield_value_s = -'+ variantMetafield.metafield_value_s + '-' ); // --
-        //   console.log('log 118.3) variant.id = '+ variant.id ); // gives id
-        //   console.log('log 118.4) variantMetafield.variant_id = '+ variantMetafield.variant_id ); // gives NEW id
-        // }
-
-        console.log('log 131.1) variantMetafield.variant_id = '+variantMetafield.variant_id  );
-        console.log('log 131.2) variant.id = '+ variant.id  );
-
-
         if (variantMetafield.variant_id == variant.id) {
           if (variantMetafield.metafield_value != false) {
-            console.log('log 130.1) variantMetafield.metafield_value_s = '+ variantMetafield.metafield_value_s ); // --
-            console.log('log 130.2) today = '+ today  );
 
             if (variantMetafield.metafield_value_s > today) {
               $("#hidden-current-variant-metafield").html(variantMetafield.metafield_value);
               $("#hidden-current-variant-metafield").show();
 
-              console.log('log 112.1) variant.id = '+ variant.id ); // gives id
-              console.log('log 112.2) variantMetafield.variant_id = '+ variantMetafield.variant_id ); // gives NEW id
-              console.log('log 112.3) variantMetafield.metafield_value = -'+ variantMetafield.metafield_value + '-'  ); // gives NEW id
             }
           }
         }
       });
-
-
-
-//CORS error
-
-
-      // var output = '';
-
-      // (function(product) {
-      //   var markup = `
-      //   <div style="font-size: 40px;">TEST</div>
-      //   <div>
-      //     ${variant.title}
-      //   </div>
-      // `;
-
-      // output += markup;
-      // })();
-
-      // return output;
-      // console.log('log 106.2) output = '+ output); // 
-
-
-
-
-      // document.querySelector('#preorder-pdp-date').innerHTML = "Order today for dispatch by "+ attribute;  // correctly changed it on variant change
-
     }
-
-
     // - am
   });
 })(window.GemQuery || jQuery);(function(jQuery) {
