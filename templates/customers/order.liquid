@@ -236,9 +236,11 @@
       <p><strong>{{ 'customer.order.fulfillment_status' | t }}:</strong> {{ order.fulfillment_status_label }}</p>
  
       {% comment %} shipping method - am {% endcomment %}
-      {% for shipping_method in order.shipping_methods %}
-        <p><strong>Shipping Method: </strong>{{shipping_method.title }}</p>
-      {% endfor %}
+      {%- if order.shipping_address != blank -%}
+        {% for shipping_method in order.shipping_methods %}
+          <p><strong>Shipping Method: </strong>{{shipping_method.title }}</p>
+        {% endfor %}
+      {%- endif -%}
 
       {%- if order.shipping_address != blank -%}
         <p class="h5">{{ order.shipping_address.name }}</p>
