@@ -93,7 +93,7 @@
               $("#hidden-current-variant-metafield").show();
               $("#hidden-current-variant-message").html("We will fulfill the item as soon as it becomes available");
               $("#hidden-current-variant-message").show();
-              $(".AddToCartText").html("XXX PRE ORDER"); // goes back to ATC automatically on next variant change if necessary
+              $(".AddToCartText").html("PRE ORDER"); // goes back to ATC automatically on next variant change if necessary
               $(".gf_p-dynamic-checkout-button").hide();
             }
           }
@@ -136,6 +136,7 @@
             $("#hidden-current-variant-metafield").hide(); // delete the field 1st. If item "coming soon" no variant shows. So start with hidden field b/c can't delete later based on variant.id
             $("#hidden-current-variant-message").hide();
             $(".gf_p-dynamic-checkout-button").show();     // show the dynamic button 1st before possibly hiding
+            $("#m-1682498763345").show();     // show the dynamic button 1st before possibly hiding
       
             variantsMetafields.forEach(function(variantMetafield) {
               if (variantMetafield.variant_id == variant.id) {
@@ -148,6 +149,7 @@
                     $("#hidden-current-variant-message").show();
                     $(".AddToCartText").html("XXX PRE ORDER"); // goes back to ATC automatically on next variant change if necessary
                     $(".gf_p-dynamic-checkout-button").hide();
+                    $("#m-1682498763345").hide();
                   }
                 }
               }
@@ -224,12 +226,32 @@
   
     
   
-    
+    // change the ATC to pre-order on 1st variant if needed - am
   
-    
+    //// const defer = (fn, ...args) => setTimeout(fn, 6000, ...args);
   
     (function( jQuery ){
   // var $module = jQuery('#m-1682501084243').children('.module');
   // You can add custom Javascript code right here.
+
+    (function atc() {
+    //// function atc() {
+      var firstVariant = $("#hidden-first-variant-metafield").html();
+      console.log('log 25) firstVariant.length = '+ firstVariant.length);
+      console.log('log 26) firstVariant = '+ firstVariant);
+
+      if (firstVariant.length > 0) {
+        console.log('log 27) firstVariant.length = '+ firstVariant.length);
+        $(".AddToCartText").html("PRE ORDER");
+        // $("#gf_p-dynamic-checkout-button").hide();
+        // $("#gf_p-dynamic-checkout-button").addClass("hide");
+        $("#m-1682498763345").hide();
+        // $("#m-1682498763345").addClass("hide");
+      }
+    })();
+    //// }
+    //// defer(atc);
+
+
 })( window.GemQuery || jQuery );
   
