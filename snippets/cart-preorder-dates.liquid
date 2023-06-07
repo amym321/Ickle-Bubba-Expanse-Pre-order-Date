@@ -24,8 +24,8 @@
 {% if order-date > date-today %}
   <div data-order-date class="cart-preorder">Order to be dispatched by {{ order-date | date: "%d %B"  }}</div>
   <textarea style="display:none;" data-preorder-note="Order to be dispatched by {{ order-date | date: "%d %B"  }}" id="CartPreorderNote">Order to be dispatched by {{ order-date | date: "%d %B"  }}</textarea>
-  {% assign order-date-long = order-date | date: "%d %B" %}
-  <input type="text" name="attributes[preOrderDate: ]" value="{{order-date-long}}">
+  {% assign order-date-long = order-date | date: '%Y-%m-%d' %}
+  <input style="display:none;" type="text" name="attributes[preOrderDate: ]" value="{{order-date-long}}">
 {% else %}
   <div data-order-date ></div>
   <textarea style="display:none;" data-preorder-note="" id="CartPreorderNote"></textarea>
