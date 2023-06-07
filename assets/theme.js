@@ -1617,9 +1617,6 @@ if (console && console.log) {
 
     // pass pre-order date as cart note - am
     updatePreorderNote: function(preorderNote) {
-      console.log('log 65) updatePreorderNote');
-      console.log('log 65.2) preorderNote = '+ preorderNote);
-
       return this._updateCart({
         url: '/cart/update.js',
         data: JSON.stringify({
@@ -1656,7 +1653,6 @@ if (console && console.log) {
   
       cartBubble: '.cart-link__bubble',
       cartNote: '[name="note"]',
-      // cartPreorderNote: '[name="preorder-note"]', // pass preorder date as cart note - am
       termsCheckbox: '.cart__terms-checkbox',
       checkoutBtn: '.cart__checkout'
     };
@@ -1688,8 +1684,7 @@ if (console && console.log) {
       this.termsCheckbox = form.querySelector(selectors.termsCheckbox);
       this.noteInput = form.querySelector(selectors.cartNote);
       this.notePreorderInput = form.querySelector(selectors.orderPreorderDate); // pass pre-order date as cart note - am
-      // this.notePreorderInput = form.querySelector(selectors.cartPreorderNote);
-  
+
       this.cartItemsUpdated = false;
   
       if (this.termsCheckbox) {
@@ -1715,74 +1710,13 @@ if (console && console.log) {
         }
 
 
-        // // // pass pre-order date as cart note - am
-        // if orderDate innerHTML != null
-        // var var_1 = document.querySelector('data-preorder-note').getAttribute('data-preorder-note');// fails when empty
-
-        // var var_2 = document.querySelector('data-preorder-note').innerHTML(); // fails when empty. no innerHTML
-
-
-        // if (var_1 != null) {
+        // pass pre-order date as cart note - am
         if (this.notePreorderInput) {
-          console.log('log 71) this.notePreorderInput'+ this.notePreorderInput);
-
-          var preorderNote = this.notePreorderInput;
-          console.log('log 71.2) preorderNote = '+  preorderNote);
           var preorderNote2 = this.notePreorderInput.value;
-          console.log('log 71.22) preorderNote2 = '+  preorderNote2);
-
-          console.log('log 71.3) run updatePreorderNote');
-          // theme.cart.updatePreorderNote(this.notePreorderInput);
           theme.cart.updatePreorderNote(preorderNote2);
-
         } else {
-          console.log('log 72) this.notePreorderInput is empty');
+          console.log('log 1) this.notePreorderInput is empty');
         }
-
-            // if (this.noteInput) {
-            //   console.log('log 70) this.noteInput'+ this.noteInput);
-
-            //   this.noteInput.addEventListener('change', function() {
-            //     var newNote = this.value;
-            //     theme.cart.updatePreorderNote(newNote);
-            //   });
-            // }
-
-
-
-        // // // pass pre-order date as cart note - am \
-        // var preorderNoteEl = document.getElementById('CartPreorderNote');
-        // var preorderNoteInput = preorderNoteEl.getAttribute('data-preorder-note');
-        // console.log('log 50) preorderNoteInput'+ preorderNoteInput);
-
-        // if (preorderNoteInput) {
-        //   console.log('log 51) preorderNoteInput'+ preorderNoteInput);
-        //   theme.cart.updateNote(preorderNoteInput);
-
-        // } else {
-        //   console.log('log 52) no date');
-        // }
-
-
-
-
-        // if (this.notePreorderInput) {
-        //   console.log('log40) this.notePreorderInput'+ this.notePreorderInput);
-
-        //   // this.notePreorderInput.addEventListener('change', function() {
-        //   //   var newNote = this.value;
-        //   //   theme.cart.updateNotePreorder(newNote);
-        //   // });
-
-        //   // var preorderNote = this.notePreorderInput.innerHTML();
-        //   var preorderNote = this.notePreorderInput.getAttribute('data-preorder-note');
-        //   console.log('log41) preorderNote'+ preorderNote);
-
-        //   // var newNote = this.value;
-        //   theme.cart.updateNotePreorder(preorderNote);
-
-        // }
-
 
   
         // Dev-friendly way to build the cart
@@ -1977,19 +1911,12 @@ if (console && console.log) {
       // update the pre-order date , cart note - am
       updateOrderDate: function(preorder, today, preorderS) {
         var preorderText = 'Order to be dispatched by '+ preorder;
-console.log('log 80) preorderText = '+ preorderText); // yes. Order to be dispatched by August XX
 
         if (preorderS > today) {
           this.form.querySelector(selectors.orderDate).innerHTML = preorderText;
           this.form.querySelector(selectors.orderPreorderDate).innerHTML = preorderText;
           this.form.querySelector(selectors.orderPreorderDate).setAttribute('data-preorder-note', preorderText);
           theme.cart.updatePreorderNote(preorderText);
-
-          // this.noteInput.addEventListener('change', function() {
-          //   var newNote = this.value;
-          //   theme.cart.updateNote(newNote);
-          // });
-
         } else if (preorderS <= today) {
           if (this.form.querySelector(selectors.orderDate)) {
             this.form.querySelector(selectors.orderDate).innerHTML = ' ';
