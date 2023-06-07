@@ -36,8 +36,10 @@
 
   {% if order-date > date-today %}
     <div data-order-date class="cart-preorder">Order to be dispatched by {{ order-date | date: "%d %B"  }}</div>
+    <textarea style="display:none;" data-preorder-note="Order to be dispatched by {{ order-date | date: "%d %B"  }}" id="CartPreorderNote"></textarea>
   {% else %}
     <div data-order-date ></div>
+    <textarea style="display:none;" data-preorder-note="" id="CartPreorderNote"></textarea>
   {% endif %}
   {% comment %} end pre-order date for dispatch - am {% endcomment %}
 
