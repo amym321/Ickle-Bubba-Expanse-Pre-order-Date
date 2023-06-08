@@ -38,20 +38,22 @@
     <div data-order-date class="cart-preorder">Order to be dispatched by {{ order-date | date: "%d %B"  }}</div>
     <textarea style="display:none;" data-preorder-note="Order to be dispatched by {{ order-date | date: "%d %B"  }}" id="CartPreorderNote"></textarea>
     {% assign order-date-long = order-date | date: '%Y-%m-%d' %}
-    <input style="display:none;" type="text" name="attributes[preOrderDate: ]" value="{{order-date-long}}">
+    <input  data-preorder-iso="{{order-date-ISO}}" type="text" name="attributes[preOrderDate: ]" value="{{order-date-ISO}}">
   {% else %}
     <div data-order-date ></div>
     <textarea style="display:none;" data-preorder-note="" id="CartPreorderNote"></textarea>
+    <input data-none data-preorder-iso="" type="text" name="attributes[preOrderDate: ]" value="">
   {% endif %}
   {% comment %} end pre-order date for dispatch - am {% endcomment %}
 
 
-<div class="cart__items  xxx" id="preorder"
+<div class="cart__items" id="preorder xxx"
   data-count="{{ cart.item_count }}"
   data-cart-subtotal="{{ cart.total_price }}"
   data-date-today="{{ date-today }}"
   data-cart-preorder="{% if order-date > date-today %}{{ order-date | date: "%d %B" }}{% endif %}"
   data-cart-preorder-s="{% if order-date > date-today %}{{ order-date | date: "%s }}{% endif %}"
+  data-cart-preorder-iso="{% if order-date > date-today %}{{ order-date | date: '%Y-%m-%d' }}{% endif %}"
   >
   {% for item in cart.items %}
     {%- render 'cart-item', product: item, sizes: '100px', -%}

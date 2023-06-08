@@ -1650,6 +1650,7 @@ if (console && console.log) {
       subTotal: '[data-subtotal]',
       orderDate: '[data-order-date]',
       orderPreorderDate: '[data-preorder-note]',// pass preorder date as cart note - am
+      orderPreorderDateISO: '[data-preorder-iso]',// preorder date as cart attribute - am
   
       cartBubble: '.cart-link__bubble',
       cartNote: '[name="note"]',
@@ -1790,11 +1791,12 @@ if (console && console.log) {
         var preorder = items.dataset.cartPreorder;
         var preorderS = items.dataset.cartPreorderS;
         var today = items.dataset.dateToday;
+        var preorderISO = items.dataset.cartPreorderIso; // preorder date as cart attribute - am
 
         this.updateCartDiscounts(markup.discounts);
         this.updateSavings(savings);
 
-        this.updateOrderDate(preorder, today, preorderS);
+        this.updateOrderDate(preorder, today, preorderS, preorderISO); // preorder date - am
   
         if (count > 0) {
           this.wrapper.classList.remove('is-empty');
@@ -1908,8 +1910,8 @@ if (console && console.log) {
         this.form.querySelector(selectors.subTotal).innerHTML = theme.Currency.formatMoney(subtotal, theme.settings.moneyFormat);
       },
 
-      // update the pre-order date , cart note - am
-      updateOrderDate: function(preorder, today, preorderS) {
+      // update the pre-order date & cart attribute - am
+      updateOrderDate: function(preorder, today, preorderS, preorderISO) {
         var preorderText = 'Order to be dispatched by '+ preorder;
 
         if (preorderS > today) {
@@ -1917,11 +1919,18 @@ if (console && console.log) {
           this.form.querySelector(selectors.orderPreorderDate).innerHTML = preorderText;
           this.form.querySelector(selectors.orderPreorderDate).setAttribute('data-preorder-note', preorderText);
           theme.cart.updatePreorderNote(preorderText);
+
+          this.form.querySelector(selectors.orderPreorderDateISO).value = preorderISO;
+          
         } else if (preorderS <= today) {
           if (this.form.querySelector(selectors.orderDate)) {
             this.form.querySelector(selectors.orderDate).innerHTML = ' ';
             this.form.querySelector(selectors.orderPreorderDate).innerHTML = '';
             this.form.querySelector(selectors.orderPreorderDate).setAttribute('data-preorder-note', '');
+
+            this.form.querySelector(selectors.orderPreorderDateISO).value = '';
+            // checkout button on cart-drawer fails when removing item with preorder date & leaving item w/o preorder date
+            // occurs regardless of theme, 1st commit, device, etc, so nt any of my code. Was working b4
           }
         };
       },
