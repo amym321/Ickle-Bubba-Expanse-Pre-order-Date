@@ -1615,16 +1615,6 @@ if (console && console.log) {
       });
     },
 
-    // pass pre-order date as cart note - am
-    updatePreorderNote: function(preorderNote) {
-      return this._updateCart({
-        url: '/cart/update.js',
-        data: JSON.stringify({
-          note: theme.cart.attributeToString(preorderNote)
-        })
-      });
-    },
-  
     attributeToString: function(attribute) {
       if ((typeof attribute) !== 'string') {
         attribute += '';
@@ -1649,11 +1639,9 @@ if (console && console.log) {
       savings: '[data-savings]',
       subTotal: '[data-subtotal]',
       orderDate: '[data-order-date]',
-      orderPreorderDate: '[data-preorder-note]',// pass preorder date as cart note - am
       orderPreorderDateISO: '[data-preorder-iso]',// preorder date as cart attribute - am
   
       cartBubble: '.cart-link__bubble',
-      cartNote: '[name="note"]',
       termsCheckbox: '.cart__terms-checkbox',
       checkoutBtn: '.cart__checkout'
     };
@@ -1683,8 +1671,8 @@ if (console && console.log) {
       this.subtotal = form.querySelector(selectors.subTotal);
       this.orderDate = form.querySelector(selectors.orderDate);
       this.termsCheckbox = form.querySelector(selectors.termsCheckbox);
-      this.noteInput = form.querySelector(selectors.cartNote);
-      this.notePreorderInput = form.querySelector(selectors.orderPreorderDate); // pass pre-order date as cart note - am
+
+      this.notePreorderInput = form.querySelector(selectors.orderPreorderDateISO); // pass pre-order date as cart attribute - am //is this duplicating efforts?? doing it once and then again on update?
 
       this.cartItemsUpdated = false;
   
@@ -1703,21 +1691,6 @@ if (console && console.log) {
   
         this.form.on('submit' + this.namespace, this.onSubmit.bind(this));
   
-        if (this.noteInput) {
-          this.noteInput.addEventListener('change', function() {
-            var newNote = this.value;
-            theme.cart.updateNote(newNote);
-          });
-        }
-
-
-        // pass pre-order date as cart note - am
-        if (this.notePreorderInput) {
-          var preorderNote2 = this.notePreorderInput.value;
-          theme.cart.updatePreorderNote(preorderNote2);
-        } else {
-          console.log('log 1) this.notePreorderInput is empty');
-        }
 
   
         // Dev-friendly way to build the cart
@@ -1916,18 +1889,11 @@ if (console && console.log) {
 
         if (preorderS > today) {
           this.form.querySelector(selectors.orderDate).innerHTML = preorderText;
-          this.form.querySelector(selectors.orderPreorderDate).innerHTML = preorderText;
-          this.form.querySelector(selectors.orderPreorderDate).setAttribute('data-preorder-note', preorderText);
-          theme.cart.updatePreorderNote(preorderText);
-
           this.form.querySelector(selectors.orderPreorderDateISO).value = preorderISO;
           
         } else if (preorderS <= today) {
           if (this.form.querySelector(selectors.orderDate)) {
             this.form.querySelector(selectors.orderDate).innerHTML = ' ';
-            this.form.querySelector(selectors.orderPreorderDate).innerHTML = '';
-            this.form.querySelector(selectors.orderPreorderDate).setAttribute('data-preorder-note', '');
-
             this.form.querySelector(selectors.orderPreorderDateISO).value = '';
             // checkout button on cart-drawer fails when removing item with preorder date & leaving item w/o preorder date
             // occurs regardless of theme, 1st commit, device, etc, so nt any of my code. Was working b4
