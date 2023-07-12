@@ -388,7 +388,7 @@
         "estimated_time_range": "{% unless cart.attributes.preOrderDate %} Estimated {{min_time}}-{{max_time}} {% endunless %}"
       },
       "thank_you": {
-        "estimated_delivery": "{% unless cart.attributes.preOrderDate %} xCurrent delivery estimate: {% endunless %}"
+        "estimated_delivery": "{% if cart.attributes.preOrderDate %} x {% else %} y Current delivery estimate: {% endif %}"
       }
     }
   }
