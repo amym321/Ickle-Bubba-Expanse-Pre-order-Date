@@ -378,11 +378,6 @@
   "shopify": {
     "links": {
       "powered_by_shopify": " "
-    },
-    "checkout": {
-      "thank_you": {
-        "estimated_delivery": "{% if cart.attributes.preOrderDate %} x {% else %} y Current delivery estimate: {% endif %}"
-      }
     }
   }
 }
