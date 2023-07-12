@@ -380,13 +380,6 @@
       "powered_by_shopify": " "
     },
     "checkout": {
-      "shipping": {
-        "estimated_delivery_date_range": "{% unless cart.attributes.preOrderDate %} {{minimum}} to {{maximum}} business days {% endunless %}",
-        "estimated_delivery_time": "{% unless cart.attributes.preOrderDate %} Estimated delivery {{time}}  {% endunless %}",
-        "estimated_delivery_time_range": "{% unless cart.attributes.preOrderDate %} Estimated delivery {{min_time}}-{{max_time}} {% endunless %}",
-        "estimated_time": "{% unless cart.attributes.preOrderDate %} Estimated {{time}} {% endunless %}",
-        "estimated_time_range": "{% unless cart.attributes.preOrderDate %} Estimated {{min_time}}-{{max_time}} {% endunless %}"
-      },
       "thank_you": {
         "estimated_delivery": "{% if cart.attributes.preOrderDate %} x {% else %} y Current delivery estimate: {% endif %}"
       }
