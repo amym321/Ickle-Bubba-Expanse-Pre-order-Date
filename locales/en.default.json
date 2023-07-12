@@ -382,6 +382,13 @@
     "checkout": {
       "thank_you": {
         "estimated_delivery": "Current delivery estimate:"
+      },
+      "general": {
+        "dates": {
+          "weekdays": {
+            "wednesday": "  "
+          }
+        }
       }
     }
   }
