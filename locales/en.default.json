@@ -381,7 +381,7 @@
     },
     "checkout": {
       "thank_you": {
-        "estimated_delivery": "Current delivery estimate:"
+        "estimated_delivery": "  "
       },
       "general": {
         "dates": {
