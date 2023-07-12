@@ -378,18 +378,6 @@
   "shopify": {
     "links": {
       "powered_by_shopify": " "
-    },
-    "checkout": {
-      "thank_you": {
-        "estimated_delivery": "  "
-      },
-      "general": {
-        "dates": {
-          "weekdays": {
-            "wednesday": "  "
-          }
-        }
-      }
     }
   }
 }
