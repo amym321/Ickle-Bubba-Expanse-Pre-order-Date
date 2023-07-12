@@ -381,7 +381,8 @@
     },
     "checkout": {
       "shipping": {
-        "estimated_delivery_date_range": "{% unless cart.attributes.preOrderDate %} {{minimum}} to {{maximum}} business days {% endunless %}"
+        "estimated_delivery_date_range": "{% unless cart.attributes.preOrderDate %} {{minimum}} to {{maximum}} business days {% endunless %}",
+        "estimated_delivery_time": "{% unless cart.attributes.preOrderDate %} Estimated delivery {{time}}  {% endunless %}"
       }
     }
   }
