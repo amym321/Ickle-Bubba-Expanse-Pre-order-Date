@@ -8401,7 +8401,7 @@ if (console && console.log) {
           if (variantMetafield.variant_id == variant.id) {
             if (variantMetafield.metafield_value !== false) {
               if (variantMetafield.metafield_value_s > today) {
-                $("#hidden-current-variant-metafield").html("BBB Order today for dispatch by "+variantMetafield.metafield_value);
+                $("#hidden-current-variant-metafield").html("Order today for dispatch by "+variantMetafield.metafield_value);
                 $("#hidden-current-variant-metafield").show();
                 $("#hidden-current-variant-message").html("We will fulfill the item as soon as it becomes available");
                 $("#hidden-current-variant-message").show();
