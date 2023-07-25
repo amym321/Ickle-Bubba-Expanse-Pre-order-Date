@@ -1653,6 +1653,7 @@ if (console && console.log) {
       orderPreorderDateISO: '[data-preorder-iso]',// preorder date as cart attribute - am
   
       cartBubble: '.cart-link__bubble',
+      cartNote: '[name="note"]',
       termsCheckbox: '.cart__terms-checkbox',
       checkoutBtn: '.cart__checkout'
     };
@@ -1682,6 +1683,7 @@ if (console && console.log) {
       this.subtotal = form.querySelector(selectors.subTotal);
       this.orderDate = form.querySelector(selectors.orderDate);
       this.termsCheckbox = form.querySelector(selectors.termsCheckbox);
+      this.noteInput = form.querySelector(selectors.cartNote);
 
       this.notePreorderInput = form.querySelector(selectors.orderPreorderDateISO); // pass pre-order date as cart attribute - am //is this duplicating efforts?? doing it once and then again on update?
 
@@ -1702,7 +1704,12 @@ if (console && console.log) {
   
         this.form.on('submit' + this.namespace, this.onSubmit.bind(this));
   
-
+        if (this.noteInput) {
+          this.noteInput.addEventListener('change', function() {
+            var newNote = this.value;
+            theme.cart.updateNote(newNote);
+          });
+        }
   
         // Dev-friendly way to build the cart
         document.addEventListener('cart:build', function() {
