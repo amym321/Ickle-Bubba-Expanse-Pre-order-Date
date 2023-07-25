@@ -1,6 +1,15 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ settings.text_direction }}">
 <head>
+  <!-- MANAGED BY LOCATION REDIRECT APP. DO NOT DELETE -->
+  {% capture CFH %}{{ content_for_header }}{% endcapture %}
+  {% if customer.tags contains "admin" or request.design_mode %}
+  {% elsif CFH contains 'adminBar' or CFH contains 'previewBar' %}
+  {% else %}
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <script src="https://{{ request.host }}/apps/locate?_p={{ request.path }}"></script>
+  {% endif %}
+  <!-- END LOCATION REDIRECT APP -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -49,6 +58,8 @@
       endif
     endunless
   -%}
+
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
   <script>
     document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
@@ -142,16 +153,7 @@
     });
 </script>
 <!-- EXPONEA end -->
-  <!-- MANAGED BY LOCATION REDIRECT APP. DO NOT DELETE -->
-  {% if content_for_header contains 'adminBarInjector' %}
-  {% elsif content_for_header contains 'previewBarInjector' %}
-  {% elsif content_for_header contains 'Shopify.designMode = true' %}
-  {% elsif content_for_header contains '.shopifypreview.com' %}
-  {% else %}
-  <meta name="referrer" content="no-referrer-when-downgrade">
-  <script src="https://{{ request.host }}/apps/locate?_p={{ request.path }}"></script>
-  {% endif %}
-  <!-- END LOCATION REDIRECT APP -->
+  
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -180,7 +182,8 @@
 {% render 'gem-app-header-scripts' %}
 <!--End_Gem_Page_Header_Script-->
  {% render 'qikify-apps' %}
-<style>@import url(//fonts.googleapis.com/css?family=Abril+Fatface|Amaranth|Anton|Arvo|Architects+Daughter|Berkshire+Swash|Bevan|Bitter|B612+Mono:400,700|Caveat|Chewy|Chilanka|Comfortaa|Concert+One|Courgette|Domine|Frijole|Fjalla+One|Josefin+Slab|Gloria+Hallelujah|Hepta+Slab:400,500,600,700|Josefin+Sans:400,600,700|Kaushan+Script|Knewave|Lexend+Mega|Libre+Baskerville|Lobster|Montserrat|Mansalva|Old+Standard+TT|Oleo+Script|Open+Sans|Orbitron:400,500,700|Oswald|PT+Sans|Pacifico|Passion+One|Permanent+Marker|Playfair+Display|Poppins|Prata|PT+Mono|Quicksand:400,500,600,700|Raleway|Righteous|Roboto|Rubik|Roboto:400,500,700|Satisfy|Shrikhand|Ubuntu|Work+Sans);</style></head>
+<style>@import url(//fonts.googleapis.com/css?family=Abril+Fatface|Amaranth|Anton|Arvo|Architects+Daughter|Berkshire+Swash|Bevan|Bitter|B612+Mono:400,700|Caveat|Chewy|Chilanka|Comfortaa|Concert+One|Courgette|Domine|Frijole|Fjalla+One|Josefin+Slab|Gloria+Hallelujah|Hepta+Slab:400,500,600,700|Josefin+Sans:400,600,700|Kaushan+Script|Knewave|Lexend+Mega|Libre+Baskerville|Lobster|Montserrat|Mansalva|Old+Standard+TT|Oleo+Script|Open+Sans|Orbitron:400,500,700|Oswald|PT+Sans|Pacifico|Passion+One|Permanent+Marker|Playfair+Display|Poppins|Prata|PT+Mono|Quicksand:400,500,600,700|Raleway|Righteous|Roboto|Rubik|Roboto:400,500,700|Satisfy|Shrikhand|Ubuntu|Work+Sans);</style>{% render 'gp-head' %}
+</head>
 
 <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if request.path == '/challenge' %} template-challange{% endif %}" data-transitions="{{ settings.animate_page_transitions }}" data-button_style="{{ settings.button_style }}" data-edges="{{ settings.roundness }}" data-type_header_capitalize="{{ settings.type_header_capitalize }}" data-swatch_style="{{ settings.swatch_style }}" data-grid-style="{{ settings.product_grid_style }}">
 <!-- Google Tag Manager (noscript) -->
