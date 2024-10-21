@@ -185,65 +185,7 @@
 <style>@import url(//fonts.googleapis.com/css?family=Abril+Fatface|Amaranth|Anton|Arvo|Architects+Daughter|Berkshire+Swash|Bevan|Bitter|B612+Mono:400,700|Caveat|Chewy|Chilanka|Comfortaa|Concert+One|Courgette|Domine|Frijole|Fjalla+One|Josefin+Slab|Gloria+Hallelujah|Hepta+Slab:400,500,600,700|Josefin+Sans:400,600,700|Kaushan+Script|Knewave|Lexend+Mega|Libre+Baskerville|Lobster|Montserrat|Mansalva|Old+Standard+TT|Oleo+Script|Open+Sans|Orbitron:400,500,700|Oswald|PT+Sans|Pacifico|Passion+One|Permanent+Marker|Playfair+Display|Poppins|Prata|PT+Mono|Quicksand:400,500,600,700|Raleway|Righteous|Roboto|Rubik|Roboto:400,500,700|Satisfy|Shrikhand|Ubuntu|Work+Sans);</style>
 </head>
 
-<body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if request.path == '/challenge' %} template-challange{% endif %}" data-transitions="{{ settings.animate_page_transitions }}" data-button_style="{{ settings.button_style }}" data-edges="{{ settings.roundness }}" data-type_header_capitalize="{{ settings.type_header_capitalize }}" data-swatch_style="{{ settings.swatch_style }}" data-grid-style="{{ settings.product_grid_style }}">
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NQVF4RD"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  {% if settings.animate_page_transitions %}
-    <script type="text/javascript">window.setTimeout(function() { document.body.className += " loaded"; }, 25);</script>
-  {% endif %}
-
-  <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
-
-  <div id="PageContainer" class="page-container">
-    <div class="transition-body">
-      {%- sections 'header-group' -%}
-      {%- sections 'popup-group' -%}
-
-      <main class="main-content" id="MainContent">
+<body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if request.path == '/challenge' %} template-challange{% endif %}" data-transitions="{{ settings.animate_page_transitions }}" data-button_style="{{ settings.button_style }}" data-edges="{{ settings.roundness }}" data-type_header_capitalize="{{ settings.type_header_capitalize }}" data-swatch_style="{{ settings.swatch_style }}" data-grid-style="{{ settings.product_grid_style }}"><main class="main-content" id="MainContent">
         {{ content_for_layout }}
-      </main>
-
-      {% if request.page_type == 'product' %}
-        {%- section 'custom-product-gallery' -%}
-      {% endif %}
-      {%- sections 'footer-group' -%}
-    </div>
-  </div>
-
-  {%- liquid
-    render 'video-modal'
-    render 'photoswipe-template'
-    if settings.quick_add_enable
-      render 'quick-add-modal'
-    endif
-    render 'tool-tip'
-  -%}
-  <div id="ProductModals"></div>
-
-  {% comment %} Image markup used when building product grid item via JS {% endcomment %}
-  <template id="naturalImageMarkup">
-    <div class="image-wrap" style="height: 0;">
-      <img class="grid-product__image" width height src srcset loading="lazy" alt>
-    </div>
-  </template>
-  <template id="fixedRatioImageMarkup">
-    <div class="grid__image-ratio">
-      <img width height src srcset loading="lazy" alt>
-    </div>
-  </template>
-  <template id="articleImageMarkup">
-    <img width height src loading="lazy">
-  </template>
-<!--Gem_Page_Footer_Script-->
-{% render 'gem-app-footer-scripts', GEM_FOOTER_SCRIPT: GEM_FOOTER_SCRIPT %}
-<!--End_Gem_Page_Footer_Script-->
-    <style>
-    .gempage-editing .transition-body {
-      opacity:1 !important;
-    }
-  </style>
-  {{ "//cdn.shopify.com/s/files/1/0603/7530/2276/t/1/assets/icklebubba.js" | script_tag}}
-{% include 'hulkapps-dao' %}</body>
+      </main></body>
 </html>

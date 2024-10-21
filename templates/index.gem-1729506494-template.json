@@ -8,15 +8,14 @@
  * ------------------------------------------------------------
  */
 {
-  
   "sections": {
-    "1729506499q5tzw6yo": {
-      "type": "gem-page-default-product",
+    "1684325751e7ah6qv4": {
+      "type": "gem-page-default-index",
       "settings": {
       }
     }
   },
   "order": [
-    "1729506499q5tzw6yo"
+    "1684325751e7ah6qv4"
   ]
 }
